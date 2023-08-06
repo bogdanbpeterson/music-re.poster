@@ -4,7 +4,7 @@ export const raise = (error: string): never => {
   throw new Error(error);
 };
 
-
+const MUSIC_CHANNEL = Deno.env.get('MUSIC_CHANNEL') ?? raise('No music channel to send to');
 const BOT_TOKEN = Deno.env.get('BOT_TOKEN') ?? raise('No BOT_TOKEN variable');
 
 const bot = new Bot(BOT_TOKEN); // <-- put your bot token between the ""
@@ -12,7 +12,8 @@ const bot = new Bot(BOT_TOKEN); // <-- put your bot token between the ""
 bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 
 bot.on(':audio', (ctx) => {
-  return ctx.reply(ctx.msg.audio?.file_id ?? 'Smth wrong');
+  if (!ctx.msg.audio?.file_id) return ctx.reply('Something wrong, reporting...');
+  return ctx.api.sendAudio(MUSIC_CHANNEL, ctx.msg.audio.file_id, { caption: '[Music: Reborn](https://t.me/the_ankh_music)', parse_mode: 'MarkdownV2' });
 });
 
 const handleUpdates = webhookCallback(bot, 'oak');
