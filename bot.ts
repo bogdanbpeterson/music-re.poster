@@ -13,7 +13,11 @@ bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 
 bot.on(':audio', (ctx) => {
   if (!ctx.msg.audio?.file_id) return ctx.reply('Something wrong, reporting...');
-  return ctx.api.sendAudio(MUSIC_CHANNEL, ctx.msg.audio.file_id, { caption: '[Music: Reborn](https://t.me/the_ankh_music)', parse_mode: 'MarkdownV2' });
+  void ctx.api.sendAudio(MUSIC_CHANNEL, ctx.msg.audio.file_id, {
+    caption: '[Music: Reborn](https://t.me/the_ankh_music)',
+    parse_mode: 'MarkdownV2',
+  });
+  return ctx.deleteMessage();
 });
 
 const handleUpdates = webhookCallback(bot, 'oak');
