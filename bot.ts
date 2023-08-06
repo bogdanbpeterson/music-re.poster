@@ -12,8 +12,8 @@ const bot = new Bot(BOT_TOKEN); // <-- put your bot token between the ""
 bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 
 bot.on('message', (ctx) => {
-  console.log(JSON.stringify(ctx));
-  return ctx.reply(JSON.stringify(ctx));
+  console.log(JSON.stringify(ctx, null, 2));
+  return ctx.reply(`\`\`\`json\nJSON.stringify(ctx, null, 2)\`\`\``, { parse_mode: 'MarkdownV2' });
 });
 
 const handleUpdates = webhookCallback(bot, 'oak');
