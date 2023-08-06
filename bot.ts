@@ -11,7 +11,7 @@ const bot = new Bot(BOT_TOKEN); // <-- put your bot token between the ""
 
 bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 
-bot.on(':forward_date', ({ reply, msg }) => {
+bot.on(':audio', ({ reply, msg }) => {
   return reply(msg.audio?.file_id ?? 'Smth wrong');
 });
 
