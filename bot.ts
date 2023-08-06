@@ -11,9 +11,8 @@ const bot = new Bot(BOT_TOKEN); // <-- put your bot token between the ""
 
 bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 
-bot.on(':forward_date', ({update, reply}) => {
-  console.log(JSON.stringify(update, null, 2));
-  return reply('```json\n' + JSON.stringify(update, null, 2) + '```', { parse_mode: 'MarkdownV2' });
+bot.on(':forward_date', ({ reply, msg }) => {
+  return reply(msg.audio?.file_id ?? 'Smth wrong');
 });
 
 const handleUpdates = webhookCallback(bot, 'oak');
