@@ -13,6 +13,7 @@ const bot = new Bot(BOT_TOKEN);
 bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 
 bot.on(':audio', (ctx) => {
+  console.log('received an audio message, logging...', ctx.msg)
   if (ctx.chat.id.toString() !== ME) return ctx.reply('Something wrong, reporting...');
   if (!ctx.msg.audio?.file_id) return ctx.reply('Something wrong, reporting...');
   void ctx.api.sendAudio(MUSIC_CHANNEL, ctx.msg.audio.file_id, {
